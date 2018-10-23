@@ -1,69 +1,45 @@
-# include <iostream>
+#include<iostream>
 using namespace std;
-
-typedef double(*TailorFunct)(double, double);
-
-double cosx(double, double);
-
-double enterEps();
-double enterX();
-
-void displayResult(double, double, TailorFunct);
-
-
-
-int main()
-{
-	double x(enterX());
-	double eps(enterEps());
-
-	displayResult(x, eps, cosx);
-
-	system("pause");
-    return 0;
-}
-
-double enterEps()
-{
-	double eps;
-	while (true) 
-	{
-		cout << "Enter eps, eps > 0 :" << endl;
-		cin >> eps;
-
-		if (eps > 0)
-			return eps;
-	}
-}
 
 double enterX()
 {
 	double x;
-
-		cout << "Enter x:" << endl;
-		cin >>x;
-			return x;
-	
-}
-
-double cosx(double x, double eps)
-{
-	double term = 1, sum = 1;
-	int n = 1;
-
-	while (fabs(term) > eps)
+	while (true)
 	{
-		term *= -(x * x / (2 * n - 1) / (2 * n));
-		sum += term;
-		n++;
-
+		cout << "Enter x, x > 0 !" <<endl;
+		cin >> x;
+		if (x > 0) return x;
 	}
-	return sum;
 }
 
-
-void displayResult(double x, double eps, TailorFunct function)
+double enterEps() 
 {
-	cout << "The result : " << endl;
-	cout << "x : " << x << " eps: " << eps << "   " << function(x, eps) << endl;
+	double eps;
+	while (true)
+	{
+		cout << "Enter eps, eps> 0 !" << endl;
+		cin >> eps;
+		if (eps > 0) return eps;
+	}
+}
+
+double countSqt(double x, double eps)
+{
+	double term = 1;
+	double nextTerm;
+
+	while(true)
+	{
+		nextTerm = 0.5*(term + x / term);
+		if (fabs(term - nextTerm) < eps) return term;
+
+		term = nextTerm;
+	}
+}
+int main()
+{
+
+	cout << countSqt(9, 0.00001) << endl;
+	system("pause");
+	return 0;
 }
