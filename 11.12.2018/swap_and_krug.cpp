@@ -18,7 +18,7 @@ int main()
 
 	int matrix[M][M] = { {0} };
 	initMatrix(matrix, n, m);
-	SwapKrug(matrix, n, m);
+	SwapRing(matrix, n, m);
 	cout << "Second matrix " << endl;
 	for (int i = 0; i < n; i++)
 	{
