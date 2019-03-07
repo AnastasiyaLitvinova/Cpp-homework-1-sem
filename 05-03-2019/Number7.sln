@@ -1,31 +1,160 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2016
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Number7", "Number7\Number7.vcxproj", "{17F681A0-7625-4D25-92E1-9B4FD1545390}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
-		Release|x64 = Release|x64
-		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{17F681A0-7625-4D25-92E1-9B4FD1545390}.Debug|x64.ActiveCfg = Debug|x64
-		{17F681A0-7625-4D25-92E1-9B4FD1545390}.Debug|x64.Build.0 = Debug|x64
-		{17F681A0-7625-4D25-92E1-9B4FD1545390}.Debug|x86.ActiveCfg = Debug|Win32
-		{17F681A0-7625-4D25-92E1-9B4FD1545390}.Debug|x86.Build.0 = Debug|Win32
-		{17F681A0-7625-4D25-92E1-9B4FD1545390}.Release|x64.ActiveCfg = Release|x64
-		{17F681A0-7625-4D25-92E1-9B4FD1545390}.Release|x64.Build.0 = Release|x64
-		{17F681A0-7625-4D25-92E1-9B4FD1545390}.Release|x86.ActiveCfg = Release|Win32
-		{17F681A0-7625-4D25-92E1-9B4FD1545390}.Release|x86.Build.0 = Release|Win32
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {9E20B4C5-1F9C-4CC7-9B43-458441F950AA}
-	EndGlobalSection
-EndGlobal
+#include <iostream> 
+using namespace std;
+
+int enterArraySize();
+void displayArray(int size, int* arr);
+void enterArrayElems(int size, int* arr);
+void deleteArrayMember(int* arr, int& size, int position);
+int* getSecArr(int* arr, int& size, int& secArrSize);
+int setSecArrSize(int* arr, int size);
+int differenceZeroAndOne(int number);
+void swap(int& a, int& b);
+void sort(int* arr, int size);
+
+int main()
+{
+	int size = enterArraySize();
+	int* arr = new int[size];
+	enterArrayElems(size, arr);
+	cout << endl;
+	displayArray(size, arr);
+
+	int secArrSize = 0;
+	cout<< "Size: "<<size<<endl;
+	int* arr1 = getSecArr(arr, size, secArrSize);
+	cout<< "Size: "<< size<<endl;
+
+	displayArray(secArrSize, arr1);
+	sort(arr, size);
+	cout <<endl;
+	displayArray(size, arr);
+
+	delete[] arr;
+	delete[] arr1;
+
+	system("pause");
+	return 0;
+}
+
+void deleteArrayMember(int* arr, int& size, int position)
+{
+	displayArray(size, arr);
+	cout <<endl;
+	for (int i = position; i < size - 1; ++i)
+	{
+		int t = arr[i];
+		arr[i] = arr[i + 1];
+		arr[i + 1] = t;
+
+		displayArray(size, arr);
+		cout<<endl;
+	}
+	size = size - 1;
+
+}
+
+int enterArraySize()
+{
+	int size;
+	while (true)
+	{
+		cout<< "Enter the array size:" <<endl;
+		cin>> size;
+		if (size >= 1)
+			return size;
+	}
+}
+
+void enterArrayElems(int size, int* arr) 
+{
+	for (int i = 0; i < size; ++i)
+	{
+		cin>> arr[i];
+		cout<< " "<< arr[i];
+	}
+}
+
+void displayArray(int size, int* arr)
+{
+	for (int i = 0; i < size; ++i)
+	{
+		cout <<arr[i] << " ";
+	}
+}
+
+int setSecArrSize(int* arr, int size)
+{
+	int secArrSize = 0;
+	for (int i = 0; i < size; ++i) 
+	{
+		if (fabs(i % 2) == 1 && fabs(arr[i] % 2) == 1 && arr[i] < 0)
+		{
+			secArrSize++;
+		}
+	}
+	return secArrSize;
+}
+
+int* getSecArr(int* arr, int& size, int& secArrSize)
+{
+	int secArrSiz = setSecArrSize(arr, size);
+	int* secArr = new int[secArrSiz];
+
+	bool flag = false;
+
+	for (int i = 0, j = 0; i < size; ++i)
+	{
+		if (i % 2 == 0 && fabs(arr[i] % 2) == 1 && arr[i] < 0)
+		{
+			delete[]
+		}
+
+		else (flag == false)
+			{
+				delete[]
+					i--;
+			}
+			
+
+		flag == true;
+	}
+
+	secArrSize = secArrSiz;
+	return secArr;
+}
+
+
+void sort(int* arr, int size)
+{
+	for (int i = 0; i < size; ++i)
+	{
+		for (int j = 0; j < size - i - 1; ++j)
+		{
+			if (differenceZeroAndOne(arr[j]) < differenceZeroAndOne(arr[j + 1]))
+			{
+				int t = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = t;
+			}
+		}
+	}
+}
+
+int differenceZeroAndOne(int number)
+{
+	int zeroes = 0, ones = 0;
+	while (number)
+	{
+		(number % 2 == 1) ? ones++ : zeroes++;
+		number /= 2;
+	}
+
+	return ones - zeroes;
+}
+
+void swap(int& a, int& b)
+{
+	int t = a;
+	a = b;
+	b = t;
+}
